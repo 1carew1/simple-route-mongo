@@ -1,0 +1,26 @@
+{
+  "name": "lab7",
+  "version": "1.0.0",
+  "description": "",
+  "proxy": "http://localhost:8080",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --ignore hackerNews/* --exec babel-node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.7.1",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "lodash": "^4.17.4"
+  }
+}

@@ -1,0 +1,73 @@
+@import url("../../../styles/base.css");
+@import url("../../../styles/queries.css");
+
+.root{
+  text-align: center;
+}
+
+.toolbar{
+  display: inline-block;
+}
+
+.wrapper {
+  overflow-y: scroll;
+  display: flex;
+  margin: 0;
+
+  height: 100vh;
+  -webkit-box-orient: horizontal;
+  -o-box-orient: horizontal;
+
+  flex-direction: column;
+
+  @media (--screen-phone-lg) {
+    flex-direction: row;
+  }
+
+}
+
+.content {
+  position: relative;
+  top: var(--topbar-height);
+  left: 0;
+
+  flex: 1;
+  order: 1;
+
+  @media (--screen-phone-lg) {
+    flex: 2;
+    order: 2;
+  }
+}
+
+.mainTitle{
+  text-align: center;
+}
+
+
+.App {
+  text-align: center;
+  background-color: #222;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 10%;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+

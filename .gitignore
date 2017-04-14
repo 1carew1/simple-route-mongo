@@ -1,0 +1,67 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Firebase config
+simpleRoute/firebaseConfig.json
+
+# Google API Key
+simpleRoute/googleMapsAPIKey.json
+
+# Auth0 Config
+simpleRoute/auth0Config.json
+
+# dependencies
+simpleRoute/node_modules
+
+# testing
+simpleRoute/coverage
+
+# production
+simpleRoute/build
+
+# misc
+simpleRoute/.DS_Store
+simpleRoute/.env
+simpleRoute/npm-debug.log
+
+# API Key
+simpleRoute/src/apiKey.txt
+simpleRoute/apiKey.txt
+simpleRoute/config.js
+
+simpleRoute/./idea
+simpleRoute/.idea
+simpleRoute/*.iml
+
+simpleRoute/config
+
+# Firebase config
+firebaseConfig.json
+
+# Google API Key
+googleMapsAPIKey.json
+
+# Auth0 Config
+auth0Config.json
+
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# production
+build
+
+# misc
+.DS_Store
+.env
+npm-debug.log
+
+# API Key
+src/apiKey.txt
+apiKey.txt
+config.js
+
+./idea
+.idea
+*.iml
