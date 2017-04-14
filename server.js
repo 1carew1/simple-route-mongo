@@ -7,15 +7,10 @@ import directionsRouter from './api/directions';
 import mongoose from 'mongoose';
 import {loadDirections} from './directionData';
 
-// Populate DB with sample data
-if(config.seedDb) {
-    loadDirections();
-}
-
 const server = express();
 //configure body-parser
 server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.urlencoded({ extended: true}));
 server.use(express.static('public'));
 server.use('/api/directions', directionsRouter);
 

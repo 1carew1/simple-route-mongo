@@ -1,12 +1,32 @@
 const mongoose = require('mongoose'),
 Schema = mongoose.Schema;
 
-const SirectionsSchema = new Schema({
-  start_address: String,
-  end_address: String,
-  user_id: String,
-  date_searched: { type: Date, default: Date.now }
+const DirectionsSchema = new Schema({
+  start_address: { type: String, required: true },
+  end_address: { type: String, required: true },
+  user_id: { type: String, required: true },
+  date_searched: { type: Date, default: Date.now, required: true }
 });
 
+const addressValidator = (v) => {
+	let result = false;
+    if(v.length > 5){
+        result = true;
+    }
+    return result;
+};
 
-export default mongoose.model('directions', SirectionsSchema);
+const dateValidator = (v) => {
+	let result = false;
+	if(v instanceof Date ) {
+		result = true;
+	}
+	return result;
+};
+
+DirectionsSchema.path('start_address').validate(addressValidator);
+DirectionsSchema.path('end_address').validate(addressValidator);
+DirectionsSchema.path('date_searched').validate(dateValidator);
+DirectionsSchema.path('user_id').validate(addressValidator);
+
+export default mongoose.model('directions', DirectionsSchema);

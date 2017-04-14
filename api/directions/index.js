@@ -23,6 +23,7 @@ router.post('/', (req, res) => {
         if (newDirection){
            Direction.create(newDirection, (err, direction) => {
               if(err) { return handleError(res, err); }
+                 console.log('Directions was saved');
                  return res.status(201).send({direction});
           });
       }else{
@@ -32,18 +33,27 @@ router.post('/', (req, res) => {
 
 //Update a direction
 router.put('/:id', (req, res) => {
-     let key = req.params.id;
-     let updateDirection = req.body;
+   let key = req.params.id;
+   let updateDirection = req.body;
 
    if(updateDirection._id) { delete updateDirection._id; }
    Direction.findById(req.params.id,  (err, direction) => {
-      if (err) { return handleError(res, err); }
-        if(!direction) { return res.send(404); }
-            const updated = _.merge(direction, updateDirection);
-            updated.save((err) => {
-                  if (err) { return handleError(res, err); }
-                          return res.send(direction);
-            });
+      if (err) { 
+        return handleError(res, err); 
+      }
+        if(!direction) { 
+          console.log('Did not find the direction');
+          return res.send(404); 
+        } else {
+          const updated = _.merge(direction, updateDirection);
+          updated.save((err) => {
+                  if (err) { 
+                    return handleError(res, err); 
+                  } else {
+                    return res.send(direction);
+                  }
+          });
+        }
       });
 });
 
