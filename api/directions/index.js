@@ -5,17 +5,35 @@ import Direction from './directionsModel';
 import config from './../../config';
 
 
-// Connect to database
-mongoose.connect(config.mongoDb);
+
 
 const router = express.Router();
 
+// Gey all directions
 router.get('/', (req, res) => {
  Direction.find((err, directions) => {
     if(err) { return handleError(res, err); }
     return res.send(directions);
   });
 });
+
+
+// Get specific direction
+router.get('/:id', (req, res) => {
+   const key = req.params.id;
+   Direction.findById(key,  (err, direction) => {
+      if (err) { 
+        return handleError(res, err); 
+      }
+        if(!direction) { 
+          console.log('Did not find the direction');
+          return res.send(404); 
+        } else {
+          return res.send(direction);
+        }
+    });       
+});
+
 
 //Add a direction
 router.post('/', (req, res) => {

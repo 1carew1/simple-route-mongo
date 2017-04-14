@@ -1,7 +1,6 @@
-const mongoose = require('mongoose'),
-Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-const DirectionsSchema = new Schema({
+const DirectionsSchema = new mongoose.Schema({
   start_address: { type: String, required: true },
   end_address: { type: String, required: true },
   user_id: { type: String, required: true },

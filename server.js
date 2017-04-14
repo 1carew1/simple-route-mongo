@@ -7,6 +7,9 @@ import directionsRouter from './api/directions';
 import mongoose from 'mongoose';
 import {loadDirections} from './directionData';
 
+// Connect to database
+mongoose.connect(config.mongoDb);
+
 const server = express();
 //configure body-parser
 server.use(bodyParser.json());
