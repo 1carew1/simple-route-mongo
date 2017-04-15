@@ -18,7 +18,7 @@ it("should return collection of JSON documents",function(done){
       done();
   });
 });
-});
+
 
 // #2 add a contact
 it("should add a direction",function(done){
@@ -119,4 +119,6 @@ superserver
        );
        }
      );
+});
+
 });
