@@ -5,7 +5,8 @@
   "proxy": "http://localhost:8080",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --ignore simpleRoute/node_modules --exec babel-node server.js"
+    "start": "nodemon --ignore simpleRoute/node_modules --exec babel-node server.js",
+    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register"
   },
   "author": "",
   "license": "ISC",
@@ -13,9 +14,14 @@
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "cross-env": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.1",
-    "nodemon": "^1.11.0"
+    "mocha": "^3.2.0",
+    "mockgoose": "^7.1.1",
+    "nodemon": "^1.11.0",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
     "axios": "^0.16.1",
@@ -24,6 +30,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "lodash": "^4.17.4",
-    "mongoose": "^4.9.4"
+    "mongoose": "^4.9.4",
+    "mongoose-role": "^2.0.0"
   }
 }
