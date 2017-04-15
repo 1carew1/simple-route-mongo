@@ -2,10 +2,6 @@ import express from 'express';
 import _ from 'lodash';
 import mongoose from 'mongoose';
 import Direction from './directionsModel';
-import config from './../../config';
-
-
-
 
 const router = express.Router();
 

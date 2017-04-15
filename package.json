@@ -5,7 +5,7 @@
   "proxy": "http://localhost:8080",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --ignore hackerNews/* --exec babel-node server.js"
+    "start": "nodemon --ignore simpleRoute/node_modules --exec babel-node server.js"
   },
   "author": "",
   "license": "ISC",

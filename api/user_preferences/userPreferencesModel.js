@@ -24,11 +24,12 @@ const unitValidator = (v) => {
 };
 
 const emailValidator = (v) => {
-  return v.matches(/.+?@.+?\..+/);
+  const regex = new RegExp("^.+?@.+?\\..+$");
+  return regex.test(v);
 };
 
 UserPreferenceSchema.path('unit_system').validate(unitValidator);
 UserPreferenceSchema.path('travel_mode').validate(travelModeValidator);
-UserPreferenceSchema.path('email').validate(travelModeValidator);
+UserPreferenceSchema.path('email').validate(emailValidator);
 
 export default mongoose.model('user_preferences', UserPreferenceSchema);

@@ -4,8 +4,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 //import postsRouter from './api/posts';
 import directionsRouter from './api/directions';
+import userPreferecnesRouter from './api/user_preferences';
 import mongoose from 'mongoose';
-import {loadDirections} from './directionData';
 
 // Connect to database
 mongoose.connect(config.mongoDb);
@@ -15,7 +15,10 @@ const server = express();
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true}));
 server.use(express.static('public'));
-server.use('/api/directions', directionsRouter);
+const baseApiUrl = '/api/';
+
+server.use(baseApiUrl + 'directions', directionsRouter);
+server.use(baseApiUrl + 'userPreferences', userPreferecnesRouter);
 
 
 server.listen(config.port, config.host, () => {
