@@ -1,5 +1,6 @@
 import config from './config';
 import express from 'express';
+import basicAuth from 'basic-auth-connect';
 //import contactsRouter from './api/contacts';
 import bodyParser from 'body-parser';
 //import postsRouter from './api/posts';
@@ -11,6 +12,8 @@ import mongoose from 'mongoose';
 mongoose.connect(config.mongoDb);
 
 const server = express();
+// Need to send this in the header : Authorization:Basic dXNlcm5hbWU6cGFzc3dvcmQ=
+server.use(basicAuth('username', 'password'));
 //configure body-parser
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true}));
