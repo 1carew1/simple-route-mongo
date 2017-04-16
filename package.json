@@ -2,7 +2,7 @@
   "name": "lab7",
   "version": "1.0.0",
   "description": "",
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:8090",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --ignore simpleRoute/node_modules --exec babel-node server.js",

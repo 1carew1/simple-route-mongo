@@ -8,18 +8,10 @@ export const logStars = function(message) {
   console.info('**********');
 };
 
-// export default {
-//   port: env.PORT || 8080,
-//   host: env.HOST || 'localhost',
-//   get serverUrl(){
-//     return 'http://${this.host}:${this.port}';
-//   }
-// };
-
 export default {
   mongoDb: 'mongodb://localhost:27017/test',
   seedDb: true,
-  port: env.PORT || 8080,
+  port: env.PORT || 8090,
   host: env.HOST || 'localhost',
   get serverUrl(){
     return `http://${this.host}:${this.port}`;
