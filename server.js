@@ -42,5 +42,5 @@ server.use(baseApiUrl + 'userPreferences', userPreferecnesRouterV1);
 
 
 server.listen(config.port, config.host, () => {
-  console.info('http://' + config.host + ':' + config.port);
+  console.info('listening : ' + config.port);
 });

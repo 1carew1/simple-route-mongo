@@ -11,9 +11,5 @@ export const logStars = function(message) {
 export default {
   mongoDb: 'mongodb://localhost:27017/test',
   seedDb: true,
-  port: env.PORT || 8090,
-  host: env.HOST || 'localhost',
-  get serverUrl(){
-    return `http://${this.host}:${this.port}`;
-  }
+  port: env.PORT || 8090
 };
