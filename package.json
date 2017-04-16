@@ -1,7 +1,7 @@
 {
-  "name": "lab7",
+  "name": "simple-route-mongo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Enterprise Web Dev Assingment 2",
   "proxy": "http://localhost:8090",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "startProd": "babel-node server.js",
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register --reporter mochawesome"
   },
-  "author": "",
+  "author": "Colm Carew",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.24.1",
