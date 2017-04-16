@@ -9,7 +9,7 @@ export const logStars = function(message) {
 };
 
 export default {
-  mongoDb: 'mongodb://localhost:27017/test',
+  mongoDb: 'mongodb://mongo:27017/test',
   seedDb: true,
   port: env.PORT || 8090
 };
