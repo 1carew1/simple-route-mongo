@@ -5,5 +5,6 @@ COPY package.json /app
 RUN npm install
 COPY . /app
 EXPOSE 8090
+CMD ["npm", "install"]
 CMD ["npm", "test"]
 CMD ["npm", "run-script", "startProd"]
