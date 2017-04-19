@@ -9,7 +9,8 @@ export const logStars = function(message) {
 };
 
 export default {
-  mongoDb: 'mongodb://mongo:27017/test',
+	// change localhost to mongo for docker
+  mongoDb: 'mongodb://localhost:27017/test',
   seedDb: true,
   port: env.PORT || 8090
 };

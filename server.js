@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 import directionsRouterV1 from './api/v1/directions';
 import userPreferecnesRouterV1 from './api/v1/user_preferences';
 import mongoose from 'mongoose';
+import cors from 'cors';
 
 // Connect to database
 if (nodeEnv == 'test'){
@@ -29,6 +30,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 export const server = express();
+server.use(cors());
 // Need to send this in the header : Authorization:Basic dXNlcm5hbWU6cGFzc3dvcmQ=
 server.use(basicAuth('username', 'password'));
 //configure body-parser

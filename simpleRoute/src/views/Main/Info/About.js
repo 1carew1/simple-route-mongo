@@ -2,12 +2,22 @@ import React, { Component } from 'react';
 import { Jumbotron } from 'react-bootstrap';
 import CustomNavbar from '../Navigation/CustomNavbar';
 import * as api from '../../../api';
+import superagent from 'superagent';
 
 class About extends Component {
   componentDidMount() {
-               api.getAll().then(resp => {
-                     console.log(resp);
-              }).catch(console.error);
+    superagent
+      .get("http://localhost:8090/api/v1/userPreferences")
+      .set('Accept', 'text/json')
+      .set('Authorization', 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=')
+      .set('Access-Control-Allow-Origin', '*')
+      .end((error, response) => {
+        if(error) {
+          console.log(error);
+        } else {
+          console.log(response.body);          
+        }
+      });
   }
 
   render() {
