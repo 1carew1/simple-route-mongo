@@ -28,7 +28,7 @@ const logout = (nextState, replace) => {
 
 export const makeMainRoutes = () => {
   return (
-     <Router history={browserHistory}>
+     <Router>
       <Route path="/" component={Container} auth={auth}>
         <IndexRedirect to="/home" />
         <Route path="home" component={Home} onEnter={requireAuth} >

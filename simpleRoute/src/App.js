@@ -9,7 +9,7 @@ class App extends Component {
   }
 
   static propTypes = {
-    history: PropTypes.object.isRequired,
+    // history: PropTypes.object.isRequired,
     routes: PropTypes.element.isRequired
   };
 
@@ -19,7 +19,8 @@ class App extends Component {
     return (
       <Router
         routes={this.props.routes}
-        history={this.props.history} />
+        // history={this.props.history} 
+        />
     )
   }
 

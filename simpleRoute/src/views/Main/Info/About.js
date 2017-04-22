@@ -6,6 +6,7 @@ import superagent from 'superagent';
 
 class About extends Component {
   componentDidMount() {
+    // TODO : look into superagent relative as this may resolve some issues
     superagent
       .get("http://localhost:8090/api/v1/userPreferences")
       .set('Accept', 'text/json')
