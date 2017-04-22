@@ -12,7 +12,6 @@ class About extends Component {
       .get(`/api/v1/userPreferences`)
       .set('Accept', 'text/json')
       .set('Authorization', 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=')
-      .set('Access-Control-Allow-Origin', '*')
       .end((error, response) => {
         if(error) {
           console.log(error);

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import _ from 'lodash';
 
 const UserPreferenceSchema = new mongoose.Schema({
+  username : { type: String, required: true, unique: true },
   avoid_highways: { type: Boolean, default: false},
   avoid_tolls: { type: Boolean, default: false},
   user_id: { type: String, required: true },
