@@ -6,9 +6,10 @@ import superagent from 'superagent';
 
 class About extends Component {
   componentDidMount() {
+    //${window.location.origin}
     // TODO : look into superagent relative as this may resolve some issues
     superagent
-      .get("http://localhost:8090/api/v1/userPreferences")
+      .get(`/api/v1/userPreferences`)
       .set('Accept', 'text/json')
       .set('Authorization', 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=')
       .set('Access-Control-Allow-Origin', '*')
