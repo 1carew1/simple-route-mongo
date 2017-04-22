@@ -15,7 +15,7 @@ export default class AuthService extends EventEmitter {
         displayName : 'Simple Route'
       },
       auth: {
-        redirectUrl: `${window.location.origin}/login`,
+        redirectUrl: `${window.location.origin}/#/login?_k=1fh2ho`,
         responseType: 'token'
       }, 
       languageDictionary: {
@@ -34,7 +34,7 @@ export default class AuthService extends EventEmitter {
     // Saves the user token
     this.setToken(authResult.idToken)
     // navigate to the home route
-    browserHistory.replace('/home')
+    browserHistory.replace('/#/home?_k=1fh2ho')
     // Async loads the user profile data
     this.lock.getProfile(authResult.idToken, (error, profile) => {
       if (error) {
