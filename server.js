@@ -31,12 +31,14 @@ mongoose.connection.on('error', (err) => {
 
 export const server = express();
 server.use(cors());
+server.use(express.static('public'));
+//From here on out the links are authenticated
 // Need to send this in the header : Authorization:Basic dXNlcm5hbWU6cGFzc3dvcmQ=
 server.use(basicAuth('username', 'password'));
 //configure body-parser
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true}));
-server.use(express.static('public'));
+
 const baseApiUrl = '/api/v1/';
 
 server.use(baseApiUrl + 'directions', directionsRouterV1);
