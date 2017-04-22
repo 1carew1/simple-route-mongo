@@ -14,20 +14,19 @@ router.get('/', (req, res) => {
 });
 
 
-// Get specific UserPreference
-router.get('/:id', (req, res) => {
-   const key = req.params.id;
-   UserPreference.findById(key,  (err, userPreference) => {
-      if (err) { 
-        return handleError(res, err); 
+// Get specific UserPreference given the user id
+router.get('/:user_id', (req, res) => {
+   const key = req.params.user_id;
+   UserPreference.find((err, userPreferences) => {
+    if(err) { return handleError(res, err); }
+    let userPreference = null;
+    userPreferences.forEach((pref,index) => {
+      if(pref.user_id == key) {
+        userPreference = pref;
       }
-        if(!userPreference) { 
-          console.log('Did not find the UserPreference');
-          return res.send(404); 
-        } else {
-          return res.send(userPreference);
-        }
-    });       
+    });
+    return res.send(userPreference);
+   });     
 });
 
 

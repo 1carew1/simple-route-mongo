@@ -43,6 +43,9 @@ export default class BackendDatabaseService {
                 }
             });
     }
+    writeUserData(profile) {
+      this.writeUserData(profile, null);
+    }
 
 
     // Update the users travel preference i.e. walk, car, etc

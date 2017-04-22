@@ -5,6 +5,7 @@ import Map from '../GoogleMaps/Map';
 
 import CustomNavbar from '../Navigation/CustomNavbar';
 import FirebaseDatabaseService from '../../../utils/FirebaseDatabaseService';
+import BackendDatabaseService from '../../../utils/BackendDatabaseService';
 
 const firebaseDatabaseService = new FirebaseDatabaseService();
 
