@@ -2,8 +2,10 @@ import express from 'express';
 import _ from 'lodash';
 import mongoose from 'mongoose';
 import UserPreference from './userPreferencesModel';
+import UrlServices from '../../UrlServices';
 
 const router = express.Router();
+const urlServices = new UrlServices();
 
 // Gey all UserPreferences
 router.get('/', (req, res) => {
@@ -68,6 +70,45 @@ router.put('/:user_id', (req, res) => {
         }
     });
 });
+
+//Get a User's Locations
+router.get('/:user_id/locations', (req, res) => {
+    let key = req.params.user_id;
+    const query = UserPreference.findOne({ 'user_id': key });
+    query.exec((err, userPreference) => {
+        if (err) {
+            console.log('Did not find the userPreference');
+            return handleError(res, err);
+        } else {
+            return res.send(userPreference.locations);
+        }
+    });
+});
+
+//Insert a User Location
+router.post('/:user_id/locations', (req, res) => {
+    let key = req.params.user_id;
+    let newUserLocation = req.body;
+
+    if (newUserLocation._id) { delete newUserLocation._id; }
+    const query = UserPreference.findOne({ 'user_id': key });
+    query.exec((err, userPreference) => {
+        if (err) {
+            console.log('Did not find the userPreference');
+            return handleError(res, err);
+        } else {
+            userPreference.locations.push(newUserLocation);
+            userPreference.save((err) => {
+                if (err) {
+                    return handleError(res, err);
+                } else {
+                    return res.send(userPreference.locations[userPreference.locations.length - 1]);
+                }
+            });
+        }
+    });
+});
+
 
 //Delete a UserPreference
 router.delete('/:id', (req, res) => {

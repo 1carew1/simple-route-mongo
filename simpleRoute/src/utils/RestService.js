@@ -20,8 +20,6 @@ export default class RestService {
                     console.log('Error Posting to backend');
                     console.log(error);
                 } else {
-                    console.log('Result from backend Post');
-                    console.log(response.body);
                     if (functionToRunOnCompletion != null) {
                         functionToRunOnCompletion(response.body);
                     }
@@ -40,8 +38,6 @@ export default class RestService {
                     console.log('Error Putting to backend');
                     console.log(error);
                 } else {
-                    console.log('Result from backend Put');
-                    console.log(response.body);
                     if (functionToRunOnCompletion != null) {
                         functionToRunOnCompletion(response.body);
                     }
@@ -63,8 +59,6 @@ export default class RestService {
                     console.log('Error Getting from backend');
                     console.log(error);
                 } else {
-                    console.log('Result from backend Get');
-                    console.log(response.body);
                     if (functionToRunOnCompletion != null) {
                         functionToRunOnCompletion(response.body);
                     }
@@ -84,8 +78,6 @@ export default class RestService {
                         console.log('Error Deleting from backend');
                         console.log(error);
                     } else {
-                        console.log('Result from backend Delete');
-                        console.log(response.body);
                         if (functionToRunOnCompletion != null) {
                             functionToRunOnCompletion(response.body);
                         }

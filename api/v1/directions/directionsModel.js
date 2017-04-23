@@ -7,7 +7,7 @@ const DirectionsSchema = new mongoose.Schema({
   date_searched: { type: Date, default: Date.now, required: true }
 });
 
-const addressValidator = (v) => {
+const stringLengthValidator = (v) => {
 	let result = false;
     if(v.length > 5){
         result = true;
@@ -15,17 +15,8 @@ const addressValidator = (v) => {
     return result;
 };
 
-const dateValidator = (v) => {
-	let result = false;
-	if(v instanceof Date ) {
-		result = true;
-	}
-	return result;
-};
-
-DirectionsSchema.path('start_address').validate(addressValidator);
-DirectionsSchema.path('end_address').validate(addressValidator);
-DirectionsSchema.path('date_searched').validate(dateValidator);
-DirectionsSchema.path('user_id').validate(addressValidator);
+DirectionsSchema.path('start_address').validate(stringLengthValidator);
+DirectionsSchema.path('end_address').validate(stringLengthValidator);
+DirectionsSchema.path('user_id').validate(stringLengthValidator);
 
 export default mongoose.model('directions', DirectionsSchema);

@@ -2,23 +2,15 @@ import express from 'express';
 import _ from 'lodash';
 import mongoose from 'mongoose';
 import Direction from './directionsModel';
+import UrlServices from '../../UrlServices';
 
 const router = express.Router();
+const urlServices = new UrlServices();
 
 // Gey all directions
 // Url can contain queries like ?user_id and limit=
 router.get('/', (req, res) => {
-    let limit = req.query.limit;
-    if (!limit) {
-        // Limit of 100 unless otherwise given
-        limit = 100;
-    } else {
-        try {
-            limit = parseInt(limit);
-        } catch (e) {
-            console.log('Error parsing limit to number');
-        }
-    }
+    const limit = urlServices.obtainLimitFromRequest(req);
     const userId = req.query.user_id;
     let startDateSearch = null;
     let endDateSearch = null;
