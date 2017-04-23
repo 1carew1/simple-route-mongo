@@ -37,9 +37,10 @@ export default class BackendDatabaseService {
 
     // Update the users travel preference i.e. walk, car, etc
     updateUserTravelMode(userId, travelMode) {
-        database.ref('/user/' + userId).update({
-            travelMode: travelMode
-        });
+        const updateObj = {
+            travel_mode : travelMode
+        };
+        restService.putToBackend(userPreferences, userId, updateObj, null);
     }
 
     // Update the users units - metric or imperial

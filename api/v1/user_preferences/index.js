@@ -9,7 +9,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
     UserPreference.find((err, userPreferences) => {
         if (err) {
-            return handleError(res, err); }
+            return handleError(res, err);
+        }
         return res.send(userPreferences);
     });
 });
@@ -18,16 +19,12 @@ router.get('/', (req, res) => {
 // Get specific UserPreference given the user id
 router.get('/:user_id', (req, res) => {
     const key = req.params.user_id;
-    UserPreference.find((err, userPreferences) => {
+    const query = UserPreference.findOne({ 'user_id': key });
+    query.exec((err, userPref) => {
         if (err) {
-            return handleError(res, err); }
-        let userPreference = null;
-        userPreferences.forEach((pref, index) => {
-            if (pref.user_id == key) {
-                userPreference = pref;
-            }
-        });
-        return res.send(userPreference);
+            return handleError(res, err);
+        }
+        return res.send(userPref);
     });
 });
 
@@ -38,7 +35,8 @@ router.post('/', (req, res) => {
     if (newUserPreference) {
         UserPreference.create(newUserPreference, (err, userPreference) => {
             if (err) {
-                return handleError(res, err); }
+                return handleError(res, err);
+            }
             console.log('UserPreference was saved');
             return res.status(201).send({ userPreference });
         });
@@ -48,18 +46,16 @@ router.post('/', (req, res) => {
 });
 
 //Update a UserPreference
-router.put('/:id', (req, res) => {
-    let key = req.params.id;
+router.put('/:user_id', (req, res) => {
+    let key = req.params.user_id;
     let updateUserPreference = req.body;
 
     if (updateUserPreference._id) { delete updateUserPreference._id; }
-    UserPreference.findById(req.params.id, (err, userPreference) => {
+    const query = UserPreference.findOne({ 'user_id': key });
+    query.exec((err, userPreference) => {
         if (err) {
-            return handleError(res, err);
-        }
-        if (!userPreference) {
             console.log('Did not find the userPreference');
-            return res.send(404);
+            return handleError(res, err);
         } else {
             const updated = _.merge(userPreference, updateUserPreference);
             updated.save((err) => {
@@ -70,6 +66,7 @@ router.put('/:id', (req, res) => {
                 }
             });
         }
+        return res.send(userPref);
     });
 });
 
@@ -78,12 +75,15 @@ router.delete('/:id', (req, res) => {
     let key = req.params.id;
     UserPreference.findById(key, (err, userPreference) => {
         if (err) {
-            return res.status(400).send(err); }
+            return res.status(400).send(err);
+        }
         if (!userPreference) {
-            return res.send(404); }
+            return res.send(404);
+        }
         userPreference.remove(err => {
             if (err) {
-                return handleError(res, err); }
+                return handleError(res, err);
+            }
             return res.send(userPreference);
         });
     });

@@ -1,12 +1,12 @@
 import React from 'react';
 import {Jumbotron, Table} from 'react-bootstrap';
-import FirebaseDatabaseService from '../../../utils/FirebaseDatabaseService';
+import BackendDatabaseService from '../../../utils/BackendDatabaseService';
 import StringUtils from '../../../utils/StringUtils';
 import {Link} from 'react-router';
 
 import './jumbostyle.css';
 
-const firebaseDatabaseService = new FirebaseDatabaseService();
+const backendDatabaseService = new BackendDatabaseService();
 const stringUtils = new StringUtils();
 
 let tableContents = null;
@@ -31,7 +31,7 @@ export class ProfileDirections extends React.Component {
       } 
       this.setState({});
     }
-    firebaseDatabaseService.retrieveLastXDirectionsOfUser(this.props.profile, 10, functionToRunOnResults.bind(this)); 
+    backendDatabaseService.retrieveLastXDirectionsOfUser(this.props.profile, 10, functionToRunOnResults.bind(this)); 
   }
 
   render() {

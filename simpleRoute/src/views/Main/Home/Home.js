@@ -4,10 +4,9 @@ import GoogleMapsService from '../../../utils/GoogleMapsService';
 import Map from '../GoogleMaps/Map';
 
 import CustomNavbar from '../Navigation/CustomNavbar';
-import FirebaseDatabaseService from '../../../utils/FirebaseDatabaseService';
+
 import BackendDatabaseService from '../../../utils/BackendDatabaseService';
 
-const firebaseDatabaseService = new FirebaseDatabaseService();
 const backendDatabaseService = new BackendDatabaseService();
 
 const googleMapsService = new GoogleMapsService();
@@ -68,7 +67,7 @@ export class Home extends React.Component {
   setDirections(incomingdirections) {
     directions = incomingdirections;
     const profile = this.state.profile;
-    firebaseDatabaseService.storeDirectionsInDB(profile, incomingdirections);
+    backendDatabaseService.storeDirectionsInDB(profile, incomingdirections);
     this.setState({});
     directions = null;
   }
@@ -79,7 +78,7 @@ export class Home extends React.Component {
          googleMapsService.obtainDirectionsWithOptions(fromLocation, toLocation, this.setDirections.bind(this), userData);
       }
       const profile = this.state.profile;
-      firebaseDatabaseService.readUserDataAndExecuteFunction(profile ,obtainDirectionsUsingUsersPreferences);
+      backendDatabaseService.readUserDataAndExecuteFunction(profile ,obtainDirectionsUsingUsersPreferences);
   }
 
   storeAddressesInLocalStorage(addresses) {

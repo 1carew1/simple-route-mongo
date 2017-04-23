@@ -8,9 +8,9 @@ import 'react-select/dist/react-select.css';
 
 import './jumbostyle.css';
 
-import FirebaseDatabaseService from '../../../utils/FirebaseDatabaseService';
+import BackendDatabaseService from '../../../utils/BackendDatabaseService';
 
-const firebaseDatabaseService = new FirebaseDatabaseService();
+const backendDatabaseService = new BackendDatabaseService();
 
 export class ProfileDetails extends React.Component {
   constructor() {
@@ -34,14 +34,14 @@ export class ProfileDetails extends React.Component {
         avoidMotorWay : dbValues.avoidHighways
       });
     }
-    firebaseDatabaseService.readUserDataAndExecuteFunction(profile, updatePreferencesWithDBValues.bind(this));
+    backendDatabaseService.readUserDataAndExecuteFunction(profile, updatePreferencesWithDBValues.bind(this));
   }
 
   onTransportPreferenceSelected(transportItem) {
     if(transportItem && transportItem.value) {
           const profile = this.props.profile;
           if(profile) {
-            firebaseDatabaseService.updateUserTravelMode(profile.user_id, transportItem.value);
+            backendDatabaseService.updateUserTravelMode(profile.user_id, transportItem.value);
           }
           this.setState({
             travelModeOption : transportItem.label
@@ -54,7 +54,7 @@ export class ProfileDetails extends React.Component {
     if(unitsItem && unitsItem.value) {
           const profile = this.props.profile;
           if(profile) {
-            firebaseDatabaseService.updateUserUnits(profile.user_id, unitsItem.value);
+            backendDatabaseService.updateUserUnits(profile.user_id, unitsItem.value);
           }
 
           this.setState({
@@ -67,14 +67,14 @@ export class ProfileDetails extends React.Component {
     const profile = this.props.profile;
     const avoidTolls = this.state.avoidTolls;
     this.setState({avoidTolls : !avoidTolls});
-    firebaseDatabaseService.updateUserAvoidTolls(profile.user_id, !avoidTolls);
+    backendDatabaseService.updateUserAvoidTolls(profile.user_id, !avoidTolls);
   }
 
   onAvoidMotorwayClicked(event) {
     const profile = this.props.profile;
     const avoidMotorways = this.state.avoidMotorWay;
     this.setState({avoidMotorWay : !avoidMotorways});
-    firebaseDatabaseService.updateUserAvoidMotorway(profile.user_id, !avoidMotorways);
+    backendDatabaseService.updateUserAvoidMotorway(profile.user_id, !avoidMotorways);
   }
 
   render() {
