@@ -8,6 +8,7 @@ import FirebaseDatabaseService from '../../../utils/FirebaseDatabaseService';
 import BackendDatabaseService from '../../../utils/BackendDatabaseService';
 
 const firebaseDatabaseService = new FirebaseDatabaseService();
+const backendDatabaseService = new BackendDatabaseService();
 
 const googleMapsService = new GoogleMapsService();
 let directions = null;
@@ -23,7 +24,7 @@ export class Home extends React.Component {
       props.auth.on('profile_updated', (newProfile) => {
         this.setState({profile: newProfile});
         //Read The User Data for Maps Preferences - if they havent logged in before
-        firebaseDatabaseService.readUserData(newProfile);
+        backendDatabaseService.readUserData(newProfile);
       });
   }
 
