@@ -31,7 +31,6 @@ router.get('/', (req, res) => {
         queryObject.date_searched = { $gt: startDateSearch, $lt: endDateSearch }
     }
     const query = Direction.find(queryObject);
-    console.log(queryObject);
     query.
     limit(limit).
     sort({_id : -1}).
@@ -71,7 +70,6 @@ router.post('/', (req, res) => {
             if (err) {
                 return handleError(res, err);
             }
-            console.log('Directions was saved');
             return res.status(201).send({ direction });
         });
     } else {

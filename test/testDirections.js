@@ -7,16 +7,15 @@ import backendConfig from './testConfig.json';
 const basicAuth = "Basic " + new Buffer(backendConfig.username.trim() + ":" + backendConfig.password.trim()).toString('base64');
 
 // UNIT test begin
-describe("Directions API unit test", function() {
+describe("Directions API + Schema unit tests", function() {
     this.timeout(120000); //increase timeout of tests to 2 mins. Starting Mockgoose can take time.
     // #0 Cannot do anything via Rest without Basic Auth
     it("Cannot do anything via Rest without Basic Auth", function(done) {
         supertest(server)
             .get("/api/v1/directions")
             .expect("Content-type", /json/)
-            .expect(401) // This is the HTTP response
+            .expect(401)
             .end(function(err, res) {
-                // HTTP status should be 401
                 res.status.should.equal(401);
                 done();
             });
@@ -28,9 +27,8 @@ describe("Directions API unit test", function() {
             .get("/api/v1/directions")
             .set('Authorization', basicAuth)
             .expect("Content-type", /json/)
-            .expect(200) // This is the HTTP response
+            .expect(200)
             .end(function(err, res) {
-                // HTTP status should be 200
                 res.status.should.equal(200);
                 done();
             });
