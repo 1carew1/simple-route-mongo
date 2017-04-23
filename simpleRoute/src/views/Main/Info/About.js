@@ -1,26 +1,8 @@
 import React, { Component } from 'react';
 import { Jumbotron } from 'react-bootstrap';
 import CustomNavbar from '../Navigation/CustomNavbar';
-import * as api from '../../../api';
-import superagent from 'superagent';
 
 class About extends Component {
-  componentDidMount() {
-    //${window.location.origin}
-    // TODO : look into superagent relative as this may resolve some issues
-    superagent
-      .get(`/api/v1/userPreferences`)
-      .set('Accept', 'text/json')
-      .set('Authorization', 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=')
-      .end((error, response) => {
-        if(error) {
-          console.log(error);
-        } else {
-          console.log(response.body);          
-        }
-      });
-  }
-
   render() {
   	return (
   		<div>
