@@ -1,10 +1,9 @@
 import RestService from './RestService';
 
 const userPreferences = "userPreferences/";
-const directions = "directions/";
+const directionsUrl = "directions/";
 const restService = new RestService();
 
-const database = null;
 export default class BackendDatabaseService {
     //Write Initial User
     writeUserData(profile, functionToRunOnCompletion) {
@@ -32,36 +31,36 @@ export default class BackendDatabaseService {
         restService.postToBackend(userPreferences, newUserPrefObjs, functionToRunOnCompletion);
     }
 
-
-
-
     // Update the users travel preference i.e. walk, car, etc
     updateUserTravelMode(userId, travelMode) {
         const updateObj = {
-            travel_mode : travelMode
+            travel_mode: travelMode
         };
-        restService.putToBackend(userPreferences, userId, updateObj, null);
+        restService.putToBackend(userPreferences, userId, updateObj);
     }
 
     // Update the users units - metric or imperial
     updateUserUnits(userId, unit) {
-        database.ref('/user/' + userId).update({
-            unitSystem: unit
-        });
+        const updateObj = {
+            unit_system: unit
+        };
+        restService.putToBackend(userPreferences, userId, updateObj);
     }
 
     // Update the user avoid motorway
     updateUserAvoidMotorway(userId, avoid) {
-        database.ref('/user/' + userId).update({
-            avoidHighways: avoid
-        });
+        const updateObj = {
+            avoid_highways: avoid
+        };
+        restService.putToBackend(userPreferences, userId, updateObj);
     }
 
     // Update the user avoid tolls
     updateUserAvoidTolls(userId, avoid) {
-        database.ref('/user/' + userId).update({
-            avoidTolls: avoid
-        });
+        const updateObj = {
+            avoid_tolls: avoid
+        };
+        restService.putToBackend(userPreferences, userId, updateObj);
     }
 
 
@@ -72,25 +71,19 @@ export default class BackendDatabaseService {
             const functionToRunOnCompletion = (response) => {
                 if (response && response.user_id) {
                     // Do Nothing All Good
-                    console.log('User Already Present');
                 } else {
                     // Create It
                     console.log('Need to create User Preferences');
                     createUserInfo(profile);
                 }
             };
-           restService.getFromBackend(userPreferences, profile.user_id, functionToRunOnCompletion);
+            restService.getFromBackend(userPreferences, profile.user_id, functionToRunOnCompletion);
         }
     }
 
     readUserDataAndExecuteFunction(profile, incomingFunction) {
         if (profile) {
-            database.ref('/user/' + profile.user_id).once('value').then(function(snapshot) {
-                if (snapshot && snapshot.val()) {
-                    // Execture the parameter function with whatever the values returned are
-                    incomingFunction(snapshot.val());
-                }
-            });
+            restService.getFromBackend(userPreferences, profile.user_id, incomingFunction);
         }
     }
 
@@ -100,27 +93,20 @@ export default class BackendDatabaseService {
             let objectDirectionsToPush = {};
 
             objectDirectionsToPush.user_id = profile.user_id;
-            objectDirectionsToPush.date_searched = (new Date()).toISOString();
+            objectDirectionsToPush.date_searched = new Date();
             objectDirectionsToPush.start_address = directionsObject.start_address;
             objectDirectionsToPush.end_address = directionsObject.end_address;
-            let ref = database.ref('/directions/');
-            ref.push(objectDirectionsToPush);
+            restService.postToBackend(directionsUrl, objectDirectionsToPush);
         }
     }
 
     retrieveLastXDirectionsOfUser(profile, numberOfEntries, functionToRunOnCompletion) {
         if (profile && numberOfEntries) {
-            let dbRef = database.ref('/directions/');
-            dbRef.orderByChild("user_id").equalTo(profile.user_id).limitToLast(numberOfEntries).once('value').then(function(snapshot) {
-                let listOfResults = [];
-                for (var value in snapshot.val()) {
-                    if (snapshot.val().hasOwnProperty(value)) {
-                        listOfResults.push(snapshot.val()[value]);
-                    }
-                }
-                functionToRunOnCompletion(listOfResults);
-            });
-
+            let url = directionsUrl;
+            url = url.replace("/", "");
+            url += "?limit=" + numberOfEntries;
+            url += "user_id=" + profile.user_id;
+            restService.getFromBackend(url, null, functionToRunOnCompletion);
         }
     }
 

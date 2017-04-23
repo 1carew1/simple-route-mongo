@@ -64,16 +64,16 @@ export default class GoogleMapsService {
     let avoidHighways = false;
 
     if(options) {
-      if(options.travelMode) {
-        travelMode = options.travelMode;
+      if(options.travel_mode) {
+        travelMode = options.travel_mode;
       }
-      if(options.unitSystem === 'IMPERIAL') {
+      if(options.unit_system === 'IMPERIAL') {
         unitSystem = window.google.maps.UnitSystem.IMPERIAL;
       }
-      if(options.avoidTolls) {
+      if(options.avoid_tolls) {
         avoidTolls = true;
       }
-      if(options.avoidHighways) {
+      if(options.avoid_highways) {
         avoidHighways = true;
       }
     }

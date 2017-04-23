@@ -28,10 +28,10 @@ export class ProfileDetails extends React.Component {
     const profile = this.props.profile;
     let updatePreferencesWithDBValues = (dbValues) => {
       this.setState({
-        travelModeOption : dbValues.travelMode,
-        unit : dbValues.unitSystem,
-        avoidTolls : dbValues.avoidTolls,
-        avoidMotorWay : dbValues.avoidHighways
+        travelModeOption : dbValues.travel_mode,
+        unit : dbValues.unit_system,
+        avoidTolls : dbValues.avoid_tolls,
+        avoidMotorWay : dbValues.avoid_highways
       });
     }
     backendDatabaseService.readUserDataAndExecuteFunction(profile, updatePreferencesWithDBValues.bind(this));

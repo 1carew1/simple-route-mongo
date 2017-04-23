@@ -66,7 +66,6 @@ router.put('/:user_id', (req, res) => {
                 }
             });
         }
-        return res.send(userPref);
     });
 });
 

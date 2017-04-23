@@ -17,7 +17,7 @@ export class ProfileDirections extends React.Component {
 
       if(results) {
        // Ensure the results are in order of most recent descending
-       tableContents = results.reverse().map((value, index) => {
+       tableContents = results.map((value, index) => {
           const linkToDirections = 'home/directions/' + value.start_address + '/' + value.end_address;
           return (
                   <tr key={index}>
