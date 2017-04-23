@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const UserLocationSchema = new mongoose.Schema({
     lat: { type: Number, required: true },
@@ -8,8 +9,8 @@ const UserLocationSchema = new mongoose.Schema({
 });
 
 const latLngValidator = (v) => {
-   const regex = new RegExp("^\\-?\\d+\\.?\\d*$");
-   return regex.test(v.toString());
+    const regex = new RegExp("^\\-?\\d+\\.?\\d*$");
+    return regex.test(v.toString());
 }
 
 UserLocationSchema.path('lat').validate(latLngValidator);
@@ -26,6 +27,7 @@ const UserPreferenceSchema = new mongoose.Schema({
     unit_system: { type: String, default: 'METRIC' },
     locations: [UserLocationSchema]
 });
+UserPreferenceSchema.plugin(uniqueValidator);
 
 
 const allowedTravelModes = ['DRIVING', 'WALKING', 'BICYCLING', 'TRANSIT'];

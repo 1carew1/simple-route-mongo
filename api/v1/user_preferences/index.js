@@ -39,7 +39,6 @@ router.post('/', (req, res) => {
             if (err) {
                 return handleError(res, err);
             }
-            console.log('UserPreference was saved');
             return res.status(201).send({ userPreference });
         });
     } else {
@@ -102,7 +101,7 @@ router.post('/:user_id/locations', (req, res) => {
                 if (err) {
                     return handleError(res, err);
                 } else {
-                    return res.send(userPreference.locations[userPreference.locations.length - 1]);
+                    return res.status(201).send(userPreference.locations[userPreference.locations.length - 1]);
                 }
             });
         }
