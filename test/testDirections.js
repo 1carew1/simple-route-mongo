@@ -225,4 +225,70 @@ describe("Directions API + Schema unit tests", function() {
             });
     });
 
+    //#13
+    it("Query Paramter - Limit - Should return one direction", function(done) {
+        supertest(server)
+            .post("/api/v1/directions")
+            .set('Authorization', basicAuth)
+            .send({ "start_address": "123 Fark Street", "end_address": "123 Real Street", "user_id": "12543453454335" })
+            .expect("Content-type", /json/)
+            .expect(201)
+            .end(function(err, res) {
+                res.status.should.equal(201);
+                res.body.direction.should.have.property("date_searched");
+                supertest(server)
+                    .post("/api/v1/directions")
+                    .set('Authorization', basicAuth)
+                    .send({ "start_address": "123 Fark Street", "end_address": "123 Real Street", "user_id": "12543453454335" })
+                    .expect("Content-type", /json/)
+                    .expect(201)
+                    .end(function(err, res) {
+                        const limit = 1;
+                        res.status.should.equal(201);
+                        supertest(server)
+                            .get("/api/v1/directions?limit=" + limit)
+                            .set('Authorization', basicAuth)
+                            .expect("Content-type", /json/)
+                            .expect(200)
+                            .end(function(err, res) {
+                                res.body.length.should.equal(limit);
+                                done();
+                            });
+                    });
+            });
+    });
+
+    //#14
+    it("Query Paramter - User Id - Should return directions for that user", function(done) {
+        const userId = "Test14USerId";
+        supertest(server)
+            .post("/api/v1/directions")
+            .set('Authorization', basicAuth)
+            .send({ "start_address": "123 Fark Street", "end_address": "123 Real Street", "user_id": userId })
+            .expect("Content-type", /json/)
+            .expect(201)
+            .end(function(err, res) {
+                res.status.should.equal(201);
+                res.body.direction.should.have.property("date_searched");
+                supertest(server)
+                    .post("/api/v1/directions")
+                    .set('Authorization', basicAuth)
+                    .send({ "start_address": "123 Fark Street", "end_address": "123 Real Street", "user_id": userId })
+                    .expect("Content-type", /json/)
+                    .expect(201)
+                    .end(function(err, res) {
+                        res.status.should.equal(201);
+                        supertest(server)
+                            .get("/api/v1/directions?user_id=" + userId)
+                            .set('Authorization', basicAuth)
+                            .expect("Content-type", /json/)
+                            .expect(200)
+                            .end(function(err, res) {
+                                res.body.length.should.equal(2);
+                                done();
+                            });
+                    });
+            });
+    });
+
 });
