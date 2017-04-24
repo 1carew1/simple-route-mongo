@@ -28,6 +28,10 @@ class CustomNavbar extends Component {
     this.openModal();
   }
 
+  whereHaveIBeenRecently(){
+  	this.props.obtainRecentLocations();
+  }
+
   openDirectionsModal() {
   	modalBody = (
 		<DirectionsForm closeModal={this.closeModal.bind(this)} map={this.props.map} setDirectionsOnMap={this.props.setDirectionsOnMap} />
@@ -45,7 +49,7 @@ class CustomNavbar extends Component {
   }
 
   centerMap() {
-  	browserHistory.push('/home');
+  	browserHistory.push('/#/home');
 	const location = JSON.parse(localStorage.getItem('currentLocation') || '{}');
 	if(location) {
 	   this.centerMapUsingLatLng(location);
@@ -66,6 +70,7 @@ class CustomNavbar extends Component {
 	  {disabled:mapOptionsDisabled, dropdown: true, text: "Map Options", links: [
 	    {text: "Centre Map", onClick: this.centerMap.bind(this)},
 	    {text: "Fly to Location", onClick: this.openFlyToModal.bind(this)},
+	    {text: "Where Have I Been Recently", onClick: this.whereHaveIBeenRecently.bind(this)},
 	    {text: "Get Directions", onClick: this.openDirectionsModal.bind(this)}
 	  ]}
 	];

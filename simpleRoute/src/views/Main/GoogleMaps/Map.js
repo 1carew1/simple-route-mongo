@@ -69,7 +69,8 @@ class Map extends Component {
     const GettingStartedGoogleMap = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapLoad}
-        defaultZoom={14}
+        defaultZoom={this.props.zoom}
+        zoom={this.props.zoom}
         defaultCenter={{ lat: 52.2373524, lng: -7.1071411 }}
         center={centerLocation}
         yesIWantToUseGoogleMapApiInternals={true}

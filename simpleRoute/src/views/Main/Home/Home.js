@@ -2,12 +2,13 @@ import React, { PropTypes as T } from 'react';
 import AuthService from '../../../utils/AuthService';
 import GoogleMapsService from '../../../utils/GoogleMapsService';
 import Map from '../GoogleMaps/Map';
-
+import RestService from '../../../utils/RestService';
 import CustomNavbar from '../Navigation/CustomNavbar';
 
 import BackendDatabaseService from '../../../utils/BackendDatabaseService';
 
 const backendDatabaseService = new BackendDatabaseService();
+const restService = new RestService();
 
 const googleMapsService = new GoogleMapsService();
 let directions = null;
@@ -18,7 +19,8 @@ export class Home extends React.Component {
       super(props, context);
       this.state = {
         profile: props.auth.getProfile(),
-        location : null
+        location : null,
+        mapZoom : 14
       };
       props.auth.on('profile_updated', (newProfile) => {
         this.setState({profile: newProfile});
@@ -100,6 +102,8 @@ export class Home extends React.Component {
       localStorage.removeItem('markers');
       let markers = [];
       markers.push(incomingLocation);
+      // Add to user location
+      this.postRecentLocation(incomingLocation);
       localStorage.setItem('markers', JSON.stringify(markers));
       this.setState({
         location : incomingLocation
@@ -110,15 +114,36 @@ export class Home extends React.Component {
     }
   }
 
+  postRecentLocation(location){
+    const url = 'userPreferences/' + this.state.profile.user_id + "/locations";
+    restService.postToBackend(url, location);
+  }
+
+  obtainRecentLocations(){
+    const url = 'userPreferences/' + this.state.profile.user_id + "/locations";
+    const plotAllMarkers = (results) => {
+      localStorage.removeItem('markers');
+      let markers = [];
+      results.forEach((location) => {
+        markers.push(location);
+      });
+      localStorage.setItem('markers', JSON.stringify(markers));
+      this.setState({
+        mapZoom : 5
+      });
+    };
+    restService.getFromBackend(url, null, plotAllMarkers);
+  }
+
 
   render(){
     const markers = JSON.parse(localStorage.getItem('markers') || '[]');
     localStorage.removeItem('markers');
     return (
     <div style={{height:'100vh', width:'100%'}}>
-      <CustomNavbar centerLocation={this.centerLocation.bind(this)} setDirectionsOnMap={this.setDirectionsOnMap.bind(this)}/>
+      <CustomNavbar centerLocation={this.centerLocation.bind(this)} setDirectionsOnMap={this.setDirectionsOnMap.bind(this)} obtainRecentLocations={this.obtainRecentLocations.bind(this)}/>
       <div style={{height:'100%', width:'100%'}}>
-          <Map center={this.state.location} markers={markers} directions={directions}/>
+          <Map center={this.state.location} markers={markers} directions={directions} zoom={this.state.mapZoom}/>
       </div>
     </div>
     )

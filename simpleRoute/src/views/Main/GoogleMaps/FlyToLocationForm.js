@@ -28,7 +28,7 @@ class FlyToLocationForm extends Component {
   }
 
   goToLocation(){
-    browserHistory.push('/home');
+    browserHistory.push('/#/home');
     const address = this.state.address;
     console.log('Going to location : ' + address);
         // Take in a list of addresses and goes to the first one
