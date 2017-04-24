@@ -1,7 +1,7 @@
 import superagent from 'superagent';
 import backendConfig from '../../config/backendConfig.json';
 // For testing for now, change to just be /api
-const apiUrl = "http://localhost:8090/api/";
+const apiUrl = "/api/";
 const apiVersion = "v1/";
 //  Get Basic Auth String - Base 64
 const basicAuth = "Basic " + btoa(backendConfig.username.trim() + ":" + backendConfig.password.trim());
