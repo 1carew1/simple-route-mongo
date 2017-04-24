@@ -3,7 +3,7 @@ RUN mkdir -p /app
 COPY package.json /app
 COPY . /app
 EXPOSE 8090
-EXPOSE 27017
+EXPOSE 27018
 WORKDIR /app
 RUN npm install
 CMD ["npm", "run-script", "startProd"]

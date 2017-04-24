@@ -12,7 +12,7 @@ services:
   mongo:
     image: dhermanns/rpi-mongo
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes_from:
       - mongodata
   mongodata:
