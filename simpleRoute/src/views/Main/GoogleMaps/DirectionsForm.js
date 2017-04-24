@@ -30,7 +30,7 @@ class DirectionsForm extends Component {
 
 
   obtainDirections() {
-    browserHistory.push('/home/directions/' + this.state.startAddress + '/' + this.state.endAddress);
+    browserHistory.push('/#/home/directions/' + this.state.startAddress + '/' + this.state.endAddress);
     this.props.setDirectionsOnMap(this.state.startAddress, this.state.endAddress);
     this.props.closeModal(); 
   }

@@ -106,7 +106,8 @@ export class Home extends React.Component {
       this.postRecentLocation(incomingLocation);
       localStorage.setItem('markers', JSON.stringify(markers));
       this.setState({
-        location : incomingLocation
+        location : incomingLocation,
+        mapZoom : 14
       });
       //TODO : Make this also place a marker
     } else {

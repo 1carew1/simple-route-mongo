@@ -29,6 +29,7 @@ class CustomNavbar extends Component {
   }
 
   whereHaveIBeenRecently(){
+  	browserHistory.push('/#/home');
   	this.props.obtainRecentLocations();
   }
 

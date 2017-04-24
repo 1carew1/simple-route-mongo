@@ -105,7 +105,7 @@ export default class BackendDatabaseService {
             let url = directionsUrl;
             url = url.replace("/", "");
             url += "?limit=" + numberOfEntries;
-            url += "user_id=" + profile.user_id;
+            url += "&user_id=" + profile.user_id;
             restService.getFromBackend(url, null, functionToRunOnCompletion);
         }
     }

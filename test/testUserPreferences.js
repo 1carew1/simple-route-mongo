@@ -56,33 +56,24 @@ describe("User Preferences API + Schema unit tests", function() {
     });
 
     // #3 add a user email should be unique
-    it("user email should be unique", function(done) {
+    it("user email can be blank", function(done) {
         const url = "/api/v1/userPreferences";
         supertest(server)
             .post(url)
             .set('Authorization', basicAuth)
-            .send({ username: "usfffername", user_id: "123fff45", email: "cc2@cc.cc", provider: "test" })
+            .send({ username: "usfffername", user_id: "123fff45", email: "", provider: "test" })
             .expect("Content-type", /json/)
             .expect(201)
             .end(function(err, res) {
                 res.status.should.equal(201);
                 res.body.userPreference.should.have.property('_id');
-                res.body.userPreference.email.should.equal('cc2@cc.cc');
-                supertest(server)
-                    .post(url)
-                    .set('Authorization', basicAuth)
-                    .send({ username: "usernxxxame", user_id: "123xx45", email: "cc2@cc.cc", provider: "test" })
-                    .expect("Content-type", /json/)
-                    .expect(500)
-                    .end(function(err, res) {
-                        res.status.should.equal(500);
-                        done();
-                    });
+                res.body.userPreference.email.should.equal('');
+                done();
             });
     });
 
     // #4 add a user name should be unique
-    it("username should be unique", function(done) {
+    it("username should does not need to be unique", function(done) {
         const url = "/api/v1/userPreferences";
         supertest(server)
             .post(url)
@@ -98,9 +89,10 @@ describe("User Preferences API + Schema unit tests", function() {
                     .set('Authorization', basicAuth)
                     .send({ username: "testusername", user_id: "123xxrere45", email: "cc2cvvc@cc.cc", provider: "test" })
                     .expect("Content-type", /json/)
-                    .expect(500)
+                    .expect(201)
                     .end(function(err, res) {
-                        res.status.should.equal(500);
+                        res.status.should.equal(201);
+                        res.body.userPreference.username.should.equal("testusername");
                         done();
                     });
             });

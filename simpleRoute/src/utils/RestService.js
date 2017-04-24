@@ -18,6 +18,7 @@ export default class RestService {
             .end((error, response) => {
                 if (error) {
                     console.log('Error Posting to backend');
+                    console.log(itemToPost);
                     console.log(error);
                 } else {
                     if (functionToRunOnCompletion != null) {
@@ -27,15 +28,16 @@ export default class RestService {
             });
     }
 
-    putToBackend(urlItem, id, itemToPost, functionToRunOnCompletion) {
+    putToBackend(urlItem, id, itemToPut, functionToRunOnCompletion) {
         superagent
             .put(apiUrl + apiVersion + urlItem + id)
-            .send(itemToPost)
+            .send(itemToPut)
             .set('Accept', 'text/json')
             .set('Authorization', basicAuth)
             .end((error, response) => {
                 if (error) {
                     console.log('Error Putting to backend');
+                    console.log(itemToPut);
                     console.log(error);
                 } else {
                     if (functionToRunOnCompletion != null) {
