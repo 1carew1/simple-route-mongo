@@ -31,7 +31,6 @@ export default class GoogleMapsService {
     }
   }
 
-  // TODO : Pass a function into this that is called when a response is obtain and then this function can update the Google Map
   useSuperagentToObtainResultsFromUrl(url, func) {
       superagent
       .get(url)
@@ -39,8 +38,8 @@ export default class GoogleMapsService {
       .set('Accept', 'text/json')
       .end((error, response) => {
           const results = response.body.results;
-          const addresses = results.map((obj, i) => {
-              let address = {
+          const addresses = results.map((obj) => {
+              const address = {
                 formatted_address : '',
                 location : {}
               }
@@ -92,25 +91,21 @@ export default class GoogleMapsService {
     return directionsFor;
   }
 
-  //TODO : Add some logic so the user can pick which route: quickest, shortest, easiest
   obtainDirectionsWithOptions(startAddress, endAddress, func, options) {
-    let directions = [];
+    const directions = [];
 
-    let directionsFor = this.generateMapOptions(options);
+    const directionsFor = this.generateMapOptions(options);
     directionsFor.origin = startAddress;
     directionsFor.destination = endAddress;
 
-    let directionsService = new window.google.maps.DirectionsService();
+    const directionsService = new window.google.maps.DirectionsService();
     directionsService.route(directionsFor, function(result, status) {
       if (status === 'OK' && result.routes) {
-        console.log('Routes :');
-        let routes = result.routes;
+        const routes = result.routes;
         let simplestRoute = null;
         routes.forEach(function(route) {
           console.log('This route has ' + route.legs[0].steps.length + ' turns and will take ' + route.legs[0].duration.text + ' with a distance of ' + route.legs[0].distance.text);
-          if(!simplestRoute) {
-            simplestRoute = route;
-          } else if(route.legs[0].steps.length < simplestRoute.legs[0].steps.length) {
+          if(!simplestRoute || route.legs[0].steps.length < simplestRoute.legs[0].steps.length) {
             simplestRoute = route;
           } else {
             //Do nothing as it's already shorter
@@ -122,16 +117,14 @@ export default class GoogleMapsService {
         func(result);
 
 
-        let simplestRouteLeg = simplestRoute.legs[0];
+        const simplestRouteLeg = simplestRoute.legs[0];
         console.log('The simplestRoute has ' + simplestRouteLeg.steps.length + ' turns and will take around' + simplestRouteLeg.duration.text + ', the distance is ' + simplestRouteLeg.distance.text);
 
         simplestRouteLeg.steps.forEach(function(step) {
           directions.push(step.instructions + ' for ' + step.distance.text);
-          //console.log(step.instructions + ' for ' + step.distance.text);
         });
       } else {
         alert('No Valid routes for : ' + startAddress + ', to : ' + endAddress );
-        console.log('Did not get valid routes');
       }
     });   
   }

@@ -17,7 +17,7 @@ export default class BackendDatabaseService {
         }
         let provider = null;
         if (profile.identities[0]) {
-            provider = profile.identities[0].provider;;
+            provider = profile.identities[0].provider;
         }
         if (!provider) {
             provider = 'unknown';
@@ -73,7 +73,6 @@ export default class BackendDatabaseService {
                     // Do Nothing All Good
                 } else {
                     // Create It
-                    console.log('Need to create User Preferences');
                     createUserInfo(profile);
                 }
             };
@@ -89,8 +88,8 @@ export default class BackendDatabaseService {
 
     storeDirectionsInDB(profile, directions) {
         if (profile && directions) {
-            let directionsObject = directions.routes[0].legs[0];
-            let objectDirectionsToPush = {};
+            const directionsObject = directions.routes[0].legs[0];
+            const objectDirectionsToPush = {};
 
             objectDirectionsToPush.user_id = profile.user_id;
             objectDirectionsToPush.date_searched = new Date();
