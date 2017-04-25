@@ -3,9 +3,7 @@ import { Mockgoose } from 'mockgoose';
 import { nodeEnv } from './config/config';
 import express from 'express';
 import basicAuth from 'express-basic-auth';
-//import contactsRouter from './api/contacts';
 import bodyParser from 'body-parser';
-//import postsRouter from './api/posts';
 import directionsRouterV1 from './api/v1/directions';
 import userPreferecnesRouterV1 from './api/v1/user_preferences';
 import mongoose from 'mongoose';
@@ -34,7 +32,7 @@ server.use(cors());
 server.use(express.static('public'));
 //From here on out the links are authenticated
 // Need to send this in the header : Authorization:Basic dXNlcm5hbWU6cGFzc3dvcmQ=
-let users = {};
+const users = {};
 allowedUsers.forEach((allowedUser) => {
     users[allowedUser.username] = allowedUser.password;
 });

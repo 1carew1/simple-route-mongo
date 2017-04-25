@@ -33,7 +33,7 @@ router.get('/:user_id', (req, res) => {
 
 //Add a UserPreference
 router.post('/', (req, res) => {
-    let newUserPreference = req.body;
+    const newUserPreference = req.body;
     if (newUserPreference) {
         UserPreference.create(newUserPreference, (err, userPreference) => {
             if (err) {
@@ -41,15 +41,13 @@ router.post('/', (req, res) => {
             }
             return res.status(201).send({ userPreference });
         });
-    } else {
-        return handleError(res, err);
     }
 });
 
 //Update a UserPreference
 router.put('/:user_id', (req, res) => {
-    let key = req.params.user_id;
-    let updateUserPreference = req.body;
+    const key = req.params.user_id;
+    const updateUserPreference = req.body;
 
     if (updateUserPreference._id) { delete updateUserPreference._id; }
     const query = UserPreference.findOne({ 'user_id': key });
@@ -72,7 +70,7 @@ router.put('/:user_id', (req, res) => {
 
 //Get a User's Locations
 router.get('/:user_id/locations', (req, res) => {
-    let key = req.params.user_id;
+    const key = req.params.user_id;
     const query = UserPreference.findOne({ 'user_id': key });
     query.exec((err, userPreference) => {
         if (err) {
@@ -86,8 +84,8 @@ router.get('/:user_id/locations', (req, res) => {
 
 //Insert a User Location
 router.post('/:user_id/locations', (req, res) => {
-    let key = req.params.user_id;
-    let newUserLocation = req.body;
+    const key = req.params.user_id;
+    const newUserLocation = req.body;
 
     if (newUserLocation._id) { delete newUserLocation._id; }
     const query = UserPreference.findOne({ 'user_id': key });
@@ -111,7 +109,7 @@ router.post('/:user_id/locations', (req, res) => {
 
 //Delete a UserPreference
 router.delete('/:id', (req, res) => {
-    let key = req.params.id;
+    const key = req.params.id;
     UserPreference.findById(key, (err, userPreference) => {
         if (err) {
             return res.status(400).send(err);
@@ -130,6 +128,6 @@ router.delete('/:id', (req, res) => {
 
 function handleError(res, err) {
     return res.status(500).send(err);
-};
+}
 
 export default router;

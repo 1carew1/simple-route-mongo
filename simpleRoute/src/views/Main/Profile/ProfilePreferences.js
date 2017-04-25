@@ -26,7 +26,7 @@ export class ProfileDetails extends React.Component {
   componentDidMount(){
     // Get The User Preferences from DB
     const profile = this.props.profile;
-    let updatePreferencesWithDBValues = (dbValues) => {
+    const updatePreferencesWithDBValues = (dbValues) => {
       this.setState({
         travelModeOption : dbValues.travel_mode,
         unit : dbValues.unit_system,
@@ -63,14 +63,14 @@ export class ProfileDetails extends React.Component {
     }
   }
 
-  onAvoidTollsClicked(event) {
+  onAvoidTollsClicked() {
     const profile = this.props.profile;
     const avoidTolls = this.state.avoidTolls;
     this.setState({avoidTolls : !avoidTolls});
     backendDatabaseService.updateUserAvoidTolls(profile.user_id, !avoidTolls);
   }
 
-  onAvoidMotorwayClicked(event) {
+  onAvoidMotorwayClicked() {
     const profile = this.props.profile;
     const avoidMotorways = this.state.avoidMotorWay;
     this.setState({avoidMotorWay : !avoidMotorways});
