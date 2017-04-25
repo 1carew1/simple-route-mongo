@@ -1,1 +1,1 @@
-docker-compose rm -f && docker-compose pull && docker-compose up --build -d && docker-compose up
+docker-compose rm -f && docker-compose pull && COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d && COMPOSE_HTTP_TIMEOUT=200 docker-compose up
