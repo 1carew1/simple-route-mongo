@@ -121,6 +121,7 @@ testDirections.js tests all the functionality associated with directions includi
 testUserPreferences.js tests all the functionality associated with UserPreferences including obtaining model via user_id and adding + retriving locations associated with a UserPreference.
 
 Note there are 3 models, Direction, UserPreference and UserLocation. Each of which has its own custom validators which are tested within the test files.
+Overall each model is quite heavily tested. As of writing this there are 32 tests.
 
 Mochawesome is used for generating reports.
 
@@ -128,25 +129,27 @@ The tests can be ran via 'npm run test' and the result report can be found : sim
 
 ## Data Model Design.
 
-Overall the data model is quite simple. The User's preferences are stored in a user table with the user id being the key of the table. The user table contains all preferences mentioned in the profile as well as the username, email and authentication provider of the user.
+Overall the data model is quite simple. The User's preferences are stored in a user_preferences collection. The user_preferences collection contains all preferences mentioned in the profile as well as the username, email and authentication provider of the user. It also contains all of the visted locations which is its own mongoose model.
 
-The directions table is used to store the searched user directions, it contains a key pointing back to the user table and has the start address, end address and date searched.
+The directions collection is used to store the searched user directions, it contains a user_id key pointing back to the user_preferences collection and has the start address, end address and date searched.
 
 ![Data Model][dataModel]
 
-Example Entry in User Table as is in Firebase :
+Example Entry in user_preferences :
 
 {
-	avoidHighways: false,
-	avoidTolls: false,
+	avoid_highways: false,
+	user_id: "google-oauth2|XXXXXXXX",
+	avoid_tolls: false,
 	email: "colmcarew2@gmail.com",
 	provider: "google-oauth2",
-	travelMode: "DRIVING",
-	unitSystem: "METRIC",
-	username: "Colm C"
+	travel_mode: "DRIVING",
+	unit_system: "METRIC",
+	username: "Colm C",
+	locations : []
 }
 
-Example Entry in the Directions Table as is in Firebase :
+Example Entry in the directions :
 
 {
 	date_searched: "2017-03-20T22:29:51.558Z",
@@ -155,25 +158,29 @@ Example Entry in the Directions Table as is in Firebase :
 	user_id: "google-oauth2|XXXXXXXX"
 }
 
-Again this is very basic data. A nice feature for furture development would be to store saftey information regarding neighbourhoods and areas such that the user could opt to get directions the safest way possible. Ideally the user would also be able to add data into safety information saying whether a neighbourhood was safe or not. Another nice feature would be to track the user's location and store them in a seperate table so the user would be able to see where they have been and also if anyone was using their account when they should not have been.
+A nice feature for furture development would be to store saftey information regarding neighbourhoods and areas such that the user could opt to get directions the safest way possible. Ideally the user would also be able to add data into safety information saying whether a neighbourhood was safe or not.
 
-## App Component Design.
+The model may be simple in design but it is heavily tested + validated and works well with the React Frontend.
 
-## UI Design.
+## API Routing.
+### User Preferences
++ GET /api/v1/userPreferences - get all user preferences
++ GET /api/v1/userPreferences/user_id - get user preference of specific user - this is their Auth0 profile id, not the Mongo DB _id
++ PUT /api/v1/userPreferences/user_id - update a user preference with the sent body - must pass validation
++ POST /api/v1/userPreferences - create a user preference with the given body - must pass validation
++ DELETE /api/v1/userPreferences/id - Delete a user preference using the Mogo DB _id value - this is not used via the Frontend but was useful to have
++ GET /api/v1/userPreferences/user_id/locations - get all locations of a specific user
++ POST /api/v1/userPreferences/user_id/locations - create a user location - must pass validation
 
-## Routing.
-+ /login - login page
-+ /about - about page
-+ /home - home page of app - the Map
-+ /home/directions/:fromLocation/:toLocation - Paramaterised URL, (:fromLocation) is the starting address and (:toLocation) is the end address - returns a Map with directions based on the user's preferences
-+ /profile - logged in user's profile
-+ /logout - logout of app and directed back to login back
-+ Anything else results in the not found page
-
+### Directions
 ## Extra features
- 
+Basic Auth
+Docker
+Jenkins build
 
 ## Independent learning.
+Docker
+Jenkins
 
 
 
