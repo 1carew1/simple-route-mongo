@@ -59,9 +59,9 @@ class CustomNavbar extends Component {
 
   generateNavigationOptions() {
   	// set data
-  	let mapOptionsDisabled = this.props.disableMapOptions;
+  	const mapOptionsDisabled = this.props.disableMapOptions;
 
-	let myNavBarData = {};
+	const myNavBarData = {};
 	myNavBarData.brand =  {linkTo: "#", text: "Simple Route"};
 	myNavBarData.links = [
 	  {linkTo: "/home", text: "Home"},
@@ -79,7 +79,7 @@ class CustomNavbar extends Component {
   }
 
   generateNavigationItems() {
-  	let myNavBarData = this.generateNavigationOptions();
+  	const myNavBarData = this.generateNavigationOptions();
   	let navItems = null;
 	if(myNavBarData.links) {
 		navItems = myNavBarData.links.map((link, i) => {

@@ -30,9 +30,8 @@ class FlyToLocationForm extends Component {
   goToLocation(){
     browserHistory.push('/#/home');
     const address = this.state.address;
-    console.log('Going to location : ' + address);
         // Take in a list of addresses and goes to the first one
-    let flyToAddress = (addresses) => {
+    const flyToAddress = (addresses) => {
       if(addresses) {
         const addressIdentifier = 'addresses';
         localStorage.removeItem(addressIdentifier);
@@ -43,7 +42,6 @@ class FlyToLocationForm extends Component {
         if(address) {
             const newCenter = addresses[0].location;
             if(newCenter) {
-              console.log('New Lat Lng is : ' + newCenter.lat + ' ' + newCenter.lng);
               this.props.closeModal();  
               this.props.centerLocation(newCenter);     
             }            
@@ -56,7 +54,7 @@ class FlyToLocationForm extends Component {
       }
     }
 
-    let findDesiredAddress = (desiredAddress) => {
+    const findDesiredAddress = (desiredAddress) => {
       googleMapsService.obtainLatLngFromAddress(desiredAddress, flyToAddress);
     }
     findDesiredAddress(address);

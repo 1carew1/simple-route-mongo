@@ -5,13 +5,11 @@ import CustomMarker from './CustomMarker';
 class Map extends Component {
 
   handleMapClick(event) {
-    console.log(event.latLng.lat() + ', ' + event.latLng.lng());
   }
 
   generateMapMarkers() {
     let mapMarkers = null;
     if(this.props.markers) {
-      //console.log('Trying to render ' + this.props.markers.length  + ' markers');
       mapMarkers = this.props.markers.map((address, i) => {
           let marker={ };
           if(address !== undefined &&  address !== null) {
@@ -35,7 +33,7 @@ class Map extends Component {
 
   generateDirections() {
     // This is a bit messy and not very React but I couldn't figure out another way of doing this
-    let rightPanel = document.getElementById("rightPanel");
+    const rightPanel = document.getElementById("rightPanel");
     if(rightPanel) {
       rightPanel.innerHTML = "";
     }

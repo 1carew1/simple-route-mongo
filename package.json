@@ -5,8 +5,8 @@
   "proxy": "http://localhost:8090",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --ignore simpleRoute/node_modules --exec babel-node server.js",
-    "startProd": "./node_modules/.bin/babel-node server.js",
+    "start": "nodemon --ignore simpleRoute/node_modules --exec babel-node app.js",
+    "startProd": "NODE_ENV=production ./node_modules/.bin/babel-node app.js",
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register --reporter mochawesome"
   },
   "author": "Colm Carew",

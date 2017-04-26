@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
         }
     }
 
-    let queryObject = {};
+    const queryObject = {};
     if (userId) {
         queryObject.user_id = userId;
     }
@@ -64,7 +64,7 @@ router.get('/:id', (req, res) => {
 
 //Add a direction
 router.post('/', (req, res) => {
-    let newDirection = req.body;
+    const newDirection = req.body;
     if (newDirection) {
         Direction.create(newDirection, (err, direction) => {
             if (err) {
@@ -72,18 +72,16 @@ router.post('/', (req, res) => {
             }
             return res.status(201).send({ direction });
         });
-    } else {
-        return handleError(res, err);
     }
 });
 
 //Update a direction - Probably uneeded, wont be updating
 router.put('/:id', (req, res) => {
     let key = req.params.id;
-    let updateDirection = req.body;
+    const updateDirection = req.body;
 
     if (updateDirection._id) { delete updateDirection._id; }
-    Direction.findById(req.params.id, (err, direction) => {
+    Direction.findById(key, (err, direction) => {
         if (err) {
             return handleError(res, err);
         }
@@ -105,7 +103,7 @@ router.put('/:id', (req, res) => {
 
 //Delete a direction
 router.delete('/:id', (req, res) => {
-    let key = req.params.id;
+    const key = req.params.id;
     Direction.findById(key, (err, direction) => {
         if (err) {
             return res.status(400).send(err);
@@ -124,6 +122,6 @@ router.delete('/:id', (req, res) => {
 
 function handleError(res, err) {
     return res.status(500).send(err);
-};
+}
 
 export default router;

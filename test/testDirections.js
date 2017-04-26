@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { server } from "../server.js";
+import { server } from "../app.js";
 import should from "should";
 
 import backendConfig from './testConfig.json';

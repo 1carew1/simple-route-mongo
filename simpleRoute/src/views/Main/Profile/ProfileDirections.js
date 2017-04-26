@@ -13,7 +13,7 @@ let tableContents = null;
 export class ProfileDirections extends React.Component {
 
   componentDidMount(){
-    let functionToRunOnResults = (results) => {
+    const functionToRunOnResults = (results) => {
 
       if(results) {
        // Ensure the results are in order of most recent descending

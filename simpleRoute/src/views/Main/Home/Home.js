@@ -42,7 +42,7 @@ export class Home extends React.Component {
     if (navigator && navigator.geolocation) {
            navigator.geolocation.getCurrentPosition((pos) => {
                 const coords = pos.coords;
-                let currentLocation = {
+                const currentLocation = {
                         lat: parseFloat(coords.latitude),
                         lng: parseFloat(coords.longitude)
                 };
@@ -76,7 +76,7 @@ export class Home extends React.Component {
 
   setDirectionsOnMap(fromLocation, toLocation) {
       console.log('Looking for direction from : ' + fromLocation + ', to : ' + toLocation);
-      let obtainDirectionsUsingUsersPreferences = (userData) => {
+      const obtainDirectionsUsingUsersPreferences = (userData) => {
          googleMapsService.obtainDirectionsWithOptions(fromLocation, toLocation, this.setDirections.bind(this), userData);
       }
       const profile = this.state.profile;
@@ -100,7 +100,7 @@ export class Home extends React.Component {
     if(incomingLocation && incomingLocation.lat && incomingLocation.lng) {
       console.log('Centering Map Around : ' + incomingLocation.lat + ', ' + incomingLocation.lng);
       localStorage.removeItem('markers');
-      let markers = [];
+      const markers = [];
       markers.push(incomingLocation);
       // Add to user location
       this.postRecentLocation(incomingLocation);
@@ -109,7 +109,6 @@ export class Home extends React.Component {
         location : incomingLocation,
         mapZoom : 14
       });
-      //TODO : Make this also place a marker
     } else {
       console.log('Not a valid lat lng');
     }
@@ -124,7 +123,7 @@ export class Home extends React.Component {
     const url = 'userPreferences/' + this.state.profile.user_id + "/locations";
     const plotAllMarkers = (results) => {
       localStorage.removeItem('markers');
-      let markers = [];
+      const markers = [];
       results.forEach((location) => {
         markers.push(location);
       });
