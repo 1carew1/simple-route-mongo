@@ -20,9 +20,9 @@ This API was then integrated with the previously mentioned React App to give the
  + Appropriate payload validation via mongoose and mongoose-unique-validator to ensure data is coherent
 
 ## Installation requirements.
-Ensure you have a config folder in the root of this project with two files in it, allowedUsers.js and config.js.
++ Ensure you have a config folder in the root of this project with two files in it, allowedUsers.js and config.js.
 
-allowedUsers.js is all of the allowed users who can access the REST API.
++ allowedUsers.js is all of the allowed users who can access the REST API.
 Ensure this file resembles :
 
 export default [{
@@ -35,7 +35,7 @@ export default [{
 
 Note - you can add as many users as you would like to this file and they will be secured via express-basic-auth, so only those users may access the API.
 
-For config.js ensure the file resembles :
++ For config.js ensure the file resembles :
 
 const env = process.env;
 
@@ -52,7 +52,7 @@ Note port should be 8090 but this should also line up with the Docker files if y
 Also note  mongoDb: 'mongodb://mongo:27017/simple_route'. If planning on running locally and not via Docker this should be changed to  mongoDb: 'mongodb://DATABASE_SERVER_NAME:27017/DATABASE_NAME'.
 
 
-I have left the public folder with my compiled version of Simple Route, however if you would like to edit the Frontend and recompile you will need to set up the simpleRoute part of the project as in : https://github.com/1carew1/simple-route#installation-requirements, however you may ignore the Firebase Part. You will need to however add another file to the config folder of the simpleRoute folder. This file is called backendConfig.json and should look like : 
++ I have left the public folder with my compiled version of Simple Route, however if you would like to edit the Frontend and recompile you will need to set up the simpleRoute part of the project as in : https://github.com/1carew1/simple-route#installation-requirements, however you may ignore the Firebase Part. You will need to however add another file to the config folder of the simpleRoute folder. This file is called backendConfig.json and should look like : 
 {
 	"username": "username",
     "password": "password"
@@ -61,24 +61,45 @@ I have left the public folder with my compiled version of Simple Route, however 
 Note this is a username and password that is allowed to access the REST API of the backend.
 
 
-Once completed, cd simpleRoute and run 'npm install'.
-Once that has finished run './build_simpleroute.sh', this will create the production optimised version of the Frontend and place it in the public folder of the root project.
-cd into the root of the project and run 'npm install'.
-Once all packages are installed run 'npm start'.
-If ports were left as default you should now be able to access the site via http://localhost:8090 and this should render the Simple Route frontend
++ Once completed, cd simpleRoute and run 'npm install'.
++ Once that has finished run './build_simpleroute.sh', this will create the production optimised version of the Frontend and place it in the public folder of the root project.
++ cd into the root of the project and run 'npm install'.
++ Once all packages are installed run 'npm start'.
++ If ports were left as default you should now be able to access the site via http://localhost:8090 and this should render the Simple Route frontend
+
+If you would like to run the whole project via Docker and not install Mongo anywhere you may run
++ docker-compose rm -f 
++ docker-compose pull 
++ docker-compose up --build -d 
++ docker-compose up
+
+This should now be available on http://localhost:8090 and runnign via Docker
 
 ### List of Software + Technologies Used
++ Jenkins 2.46.2
++ Docker 17.03.1
 + Node 6.10.0
 + npm 3.10.10
 + create-react-app tool
 + ReactJS v15.4.2
++ express 4.15.2
++ express-basic-auth 1.0.1
++ lodash 4.17.4
++ mocha 3.2.0
++ mochawesome 2.0.5
++ mockgoose 7.1.1
++ mongoose 4.9.4
++ mongoose-unique-validator 1.0.5
++ should 11.2.1
++ supertest 3.0.0
 + Bootstrap 3
 + React Google Maps 6
 + Superagent 3
 + React Select 1
 + React Router 2
-+ Firebase 3
 + Auth0 Lock 10
+
+## Testing
 
 ## Data Model Design.
 
@@ -132,16 +153,3 @@ Again this is very basic data. A nice feature for furture development would be t
 
 
 [dataModel]: ./readmeResources/SimpleRouteReactDataModel.png
-[homeModel]: ./readmeResources/SimpleRouteReactHomeModel.png
-[mainModel]: ./readmeResources/SimpleRouteReactMainModel.png
-[profileModel]: ./readmeResources/SimpleRouteReactProfileModel.png
-[homeScreenMap]: ./readmeResources/homeScreenMap.png
-[loginMenu]: ./readmeResources/loginMenu.png
-[loginScreen]: ./readmeResources/loginScreen.png
-[profileBasicInfo]: ./readmeResources/profileBasicInfo.png
-[mapWithDirections]: ./readmeResources/mapWithDirections.png
-[flyToLocation]: ./readmeResources/flyToLocation.png
-[directionsForm]: ./readmeResources/getDirectionForm.png
-[aboutPage]: ./readmeResources/aboutPage.png
-[directionsTable]: ./readmeResources/directionTable.png
-[preferences]: ./readmeResources/preferences.png
