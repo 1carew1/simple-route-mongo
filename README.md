@@ -127,7 +127,9 @@ Mochawesome is used for generating reports.
 
 ![Data Model][directionsTest]
 
-Some of the Directions test results as per the Mochawesome reporting test tool.
+Some of the Directions test results as per the Mochawesome reporting test tool. Note the long delay in setting up the Mockgoose database.
+
+One point to note about testing is that a beforeEach function was written to clear the database, however this heavily degraded the time performance of running the tests.
 
 ![Data Model][userTests]
 
