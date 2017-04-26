@@ -6,48 +6,66 @@ Name: Colm Carew
 Simple Route is a Web Application written using the React JavaScript Library, the original project of which can be found here : https://github.com/1carew1/simple-route. 
 
 The core idea of the application is to create a Mongo + Express backend using Node JS in order to convey good design practice for APIs.
+This API was then integrated with the previously mentioned React App to give the App a backend database.
 
 
-### Feature List
+### API Feature List
   
- + Centring the map on the user's current location + placing a marker
- + Flying to a location/address specified by the user and placing a marker there
- + Directions from one location to another giving the simplest route obtained from Google Direction Services (simplest is defined by the lowest number of turns)
- + Storing the user's preferences such that the user can pick the units (Imperial or Metric), the mode of transport (Car, Walk etc.), the option of avoiding tolls and the option of avoiding motorways/highways
- + Storing of the user's searched directions and displaying the most recent 10 searched in descending order of recency (most recent first) and providing a link to generate the directions again
- + A paramaterised URL which allows the user to share their searched directions
+ + Version Control of the Rest Api - /api/v1
+ + Basic HTTP Authentication for REST Calls via express-basic-auth
+ + Ability to create/read/update/delete UserPreferences including User Locations which is a nested collection within User Preferences - /userPreferences
+ + Ability to get all locations associated with the user - /userPreferences/:user_id/locations
+ + Ability to create/read/update/delete Directions Searched by a User - /directions
+ + Ability to search Directions Model via URL queries e.g. ?user_id=123&limit=10
+ + Appropriate payload validation via mongoose and mongoose-unique-validator to ensure data is coherent
 
 ## Installation requirements.
-Please see the file SimpleRouteEntWebDev.pdf in the root of this project for more information of its functionality and how to set it up.
+Ensure you have a config folder in the root of this project with two files in it, allowedUsers.js and config.js.
 
-Ensure you have a firebaseConfig.json file in the config folder of this project with following content using your own Keys + Links :
+allowedUsers.js is all of the allowed users who can access the REST API.
+Ensure this file resembles :
 
+export default [{
+    username: "username",
+    password: "password"
+}, {
+    username: "admin",
+    password: "password"
+}];
+
+Note - you can add as many users as you would like to this file and they will be secured via express-basic-auth, so only those users may access the API.
+
+For config.js ensure the file resembles :
+
+const env = process.env;
+
+export const nodeEnv = env.NODE_ENV || 'development';
+
+
+export default {
+  mongoDb: 'mongodb://mongo:27017/DATABASE_NAME',
+  seedDb: true,
+  port: env.PORT || 8090
+};
+
+Note port should be 8090 but this should also line up with the Docker files if you plan to run this with Docker.
+Also note  mongoDb: 'mongodb://mongo:27017/simple_route'. If planning on running locally and not via Docker this should be changed to  mongoDb: 'mongodb://DATABASE_SERVER_NAME:27017/DATABASE_NAME'.
+
+
+I have left the public folder with my compiled version of Simple Route, however if you would like to edit the Frontend and recompile you will need to set up the simpleRoute part of the project as in : https://github.com/1carew1/simple-route#installation-requirements, however you may ignore the Firebase Part. You will need to however add another file to the config folder of the simpleRoute folder. This file is called backendConfig.json and should look like : 
 {
-    "apiKey": "XXXXXXX",
-    "authDomain": "XXXXXXX",
-    "databaseURL": "XXXXXXX",
-    "storageBucket": "XXXXXXX",
-    "messagingSenderId": "XXXXXXX"
+	"username": "username",
+    "password": "password"
 }
 
-Ensure you have a googleMapsAPIKey.json file in the config folder  of this project with the following content :
-
-{
-  "apiKey" : "XXXXX"
-}
-
-- Side note - index.html, which is located in the public folder, the API key will need to be changed here as there was no way around having the Google Maps JS script with the API Key in this file.
+Note this is a username and password that is allowed to access the REST API of the backend.
 
 
-Ensure you have a  auth0Config.json file in the config folder  of this project with following content using your own Keys + Links :
-
-{
-  "apiKey": "XXXXX",
-  "userUrl": "XXXXX"
-}
-
-Once completed run 'npm install' in the root of the project.
-Once all packages are installed run 'npm start'
+Once completed, cd simpleRoute and run 'npm install'.
+Once that has finished run './build_simpleroute.sh', this will create the production optimised version of the Frontend and place it in the public folder of the root project.
+cd into the root of the project and run 'npm install'.
+Once all packages are installed run 'npm start'.
+If ports were left as default you should now be able to access the site via http://localhost:8090 and this should render the Simple Route frontend
 
 ### List of Software + Technologies Used
 + Node 6.10.0
