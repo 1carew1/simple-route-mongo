@@ -211,12 +211,18 @@ The solution implemented for this was that a Jenkins Server was ran on a local m
 A better solution to this would be to run Jenkins on the Pi as a slave to the Jenkins running locally. Once the master Jenkins builds the project successfully, get the Pi to build the project (note build, not test) and deploy it.
 
 ![Jenkins Project][jenkinsProject]
+
+
 The project on Jenkins.
 
 ![Jenkins Config][jenkinsConfig]
+
+
 Part of the Jenkins Configuration.
 
 ![Jenkins Build][jenkinBuild]
+
+
 Start of a Jenkins Build of the Project.
 
 
