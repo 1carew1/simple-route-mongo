@@ -1,5 +1,4 @@
 npm install
-npm run test
 cd simpleRoute
 npm install
 if [ ! -d "config" ]; then
@@ -11,6 +10,19 @@ cd ..
 chmod 755 build_simpleroute.sh
 ./build_simpleroute.sh
 cd ..
+npm run test
+ssh pi@pipublic -p3118 <<'ENDSSH'
+
+cd /home/pi/simple-route-mongo
+git pull
+npm install
+cd simpleRoute
+npm install
+./build_simpleroute.sh
+cd ..
 docker-compose rm -f
-docker-compose pull
-docker-compose up --build -d
+COMPOSE_HTTP_TIMEOUT=200 docker-compose pull
+COMPOSE_HTTP_TIMEOUT=200 docker-compose up --build -d
+COMPOSE_HTTP_TIMEOUT=200 docker-compose up -d
+
+ENDSSH
