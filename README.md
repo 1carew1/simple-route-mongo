@@ -20,10 +20,12 @@ This API was then integrated with the previously mentioned React App to give the
  + Appropriate payload validation via mongoose and mongoose-unique-validator to ensure data is coherent
 
 ## Installation requirements.
-+ Ensure you have a config folder in the root of this project with two files in it, allowedUsers.js and config.js.
+Ensure you have a config folder in the root of this project with two files in it, allowedUsers.js and config.js.
 
-+ allowedUsers.js is all of the allowed users who can access the REST API.
+allowedUsers.js is all of the allowed users who can access the REST API.
 Ensure this file resembles :
+
+
 
 export default [{
     username: "username",
@@ -33,9 +35,12 @@ export default [{
     password: "password"
 }];
 
+
+
 Note - you can add as many users as you would like to this file and they will be secured via express-basic-auth, so only those users may access the API.
 
-+ For config.js ensure the file resembles :
+For config.js ensure the file resembles :
+
 
 const env = process.env;
 
@@ -48,11 +53,15 @@ export default {
   port: env.PORT || 8090
 };
 
+
+
 Note port should be 8090 but this should also line up with the Docker files if you plan to run this with Docker.
 Also note  mongoDb: 'mongodb://mongo:27017/simple_route'. If planning on running locally and not via Docker this should be changed to  mongoDb: 'mongodb://DATABASE_SERVER_NAME:27017/DATABASE_NAME'.
 
 
-+ I have left the public folder with my compiled version of Simple Route, however if you would like to edit the Frontend and recompile you will need to set up the simpleRoute part of the project as in : https://github.com/1carew1/simple-route#installation-requirements, however you may ignore the Firebase Part. You will need to however add another file to the config folder of the simpleRoute folder. This file is called backendConfig.json and should look like : 
+I have left the public folder with my compiled version of Simple Route, however if you would like to edit the Frontend and recompile you will need to set up the simpleRoute part of the project as in : https://github.com/1carew1/simple-route#installation-requirements, however you may ignore the Firebase Part. You will need to however add another file to the config folder of the simpleRoute folder. This file is called backendConfig.json and should look like : 
+
+
 {
 	"username": "username",
     "password": "password"
@@ -68,12 +77,14 @@ Note this is a username and password that is allowed to access the REST API of t
 + If ports were left as default you should now be able to access the site via http://localhost:8090 and this should render the Simple Route frontend
 
 If you would like to run the whole project via Docker and not install Mongo anywhere you may run
+
+
 + docker-compose rm -f 
 + docker-compose pull 
 + docker-compose up --build -d 
 + docker-compose up
 
-This should now be available on http://localhost:8090 and runnign via Docker
+This should now be available on http://localhost:8090 and running via Docker
 
 ### List of Software + Technologies Used
 + Jenkins 2.46.2
@@ -100,6 +111,20 @@ This should now be available on http://localhost:8090 and runnign via Docker
 + Auth0 Lock 10
 
 ## Testing
+Mocha, mochawesome, mockgoose, supertest and should are used together to test the REST API.
+
+Mockgoose is used for mocking a Mongo DB.
+Tests can be seen in the test directiory in the root of the project.
+The testConfig.json specifies the Username and Password to be used with the REST API.
+
+testDirections.js tests all the functionality associated with directions including search directions via a paramater query (?user_id=2343).
+testUserPreferences.js tests all the functionality associated with UserPreferences including obtaining model via user_id and adding + retriving locations associated with a UserPreference.
+
+Note there are 3 models, Direction, UserPreference and UserLocation. Each of which has its own custom validators which are tested within the test files.
+
+Mochawesome is used for generating reports.
+
+The tests can be ran via 'npm run test' and the result report can be found : simple-route-mongo/mochawesome-reports/mochawesome.html. There is also a JSON file if you want the test results in JSON.
 
 ## Data Model Design.
 
