@@ -168,19 +168,37 @@ The model may be simple in design but it is heavily tested + validated and works
 + GET /api/v1/userPreferences/user_id - get user preference of specific user - this is their Auth0 profile id, not the Mongo DB _id
 + PUT /api/v1/userPreferences/user_id - update a user preference with the sent body - must pass validation
 + POST /api/v1/userPreferences - create a user preference with the given body - must pass validation
-+ DELETE /api/v1/userPreferences/id - Delete a user preference using the Mogo DB _id value - this is not used via the Frontend but was useful to have
++ DELETE /api/v1/userPreferences/id - Delete a user preference using the Mogo DB _id value - this is not used via the Frontend but was useful to have and it is tested
 + GET /api/v1/userPreferences/user_id/locations - get all locations of a specific user
 + POST /api/v1/userPreferences/user_id/locations - create a user location - must pass validation
 
 ### Directions
++ GET /api/v1/directions - get all directions - there is also query functionality here which supports search by user id, start date and end date so a query may look like /api/v1/directions?user_id=1234&start_date=XXXX&end_date=XXX&limit=100 - Note that start date must have an end date but not all of these paramaters must be used, however if a limit is not specified it defaults to 100
++ GET /api/v1/directions/:id - get a specific direction
++ PUT /api/v1/directions/:id - update a direction - not actually used by the frontend but it is tested
++ POST /api/v1/directions - create a new directions - it must pass validation
++ DELETE /api/v1/directions/:id - delete a direction - not used by frontend but it is tested
 ## Extra features
-Basic Auth
-Docker
-Jenkins build
+### Basic Auth
+express-basic-auth was used for basic HTTP Auth as a step in securing the REST API so that not just anyone would be able to perform requests.
+There is a concern here however as the passwords do need to be stored in plain text and the Authorization HTTP header can be easily decoded (Base64). A follow on to this would be to use JSON web tokens such that they expire after a certain time. User Roles should also be set up such that a front end can only post and get, not delete for instance, if that is desired.
+
+
+### Docker
+The project contains a docker-compose.yml file and Dockerfile. These are used for generating the appropriate Docker Images + connecting them in order to get the applications running. This eliminates the need for the user to run Mongo themselves. There are 3 images, dhermanns/rpi-mongo - Mongo DB for Raspberry Pi, tianon/true - Data storage for Mongo and hypriot/rpi-node. Note in most cases a specific version of the Dokcer image was used as it can be dangerous to always pull the latest.
+
+Obviously these images are not standard Docker images. Some of them are build in mind for a Raspberry Pi architecture. They were picked for this reason. The App is capable of running via Docker, on a Raspberry Pi, it can also run on anything that runs Docker as 64 bit standard Docker images will not run on the Pi. In this case it was deployed live to a Raspberry Pi 3.
+
 
 ## Independent learning.
-Docker
-Jenkins
+### Docker
+As mentioned above Docker is used for running the App as it eliminates the 'it runs on my machine' issues. For this project Docker images were chosed for the Raspberry Pi, as even though all Docker images should run on any Docker daemon, they do not if the architecture cannot support the underlying image. However as the images are built for the Raspberry Pi, the images should now run on any machine as a 64 bit machine can run 32 bit images but not vice versa. Fun fact, the Raspberry Pi 3 is actually 64 bit, however the Raspbian image is 32 bit for backwards compatability with older Pis.
+### Jenkins
+A Jenkins build server was also deployed on the Raspberry Pi, however there is a slight issue. npm run test cannot be run on the Raspberry Pi even though npm has an build for ARM. The reason is that the Mongo and Mongoose modules will not run when testing the app, thus the App cannot be tested and thus the Pi cannot be used to build the App as it cannot test the code as it will always fail.
+
+The solution implemented for this was that a Jenkins Server was ran on a local machine (Mac) which listened via Git HTTP Hooks for code changes, once a change would come in the project would be built and deployed to the Pi and the Pi would run the App via Docker.
+
+A better solution to this would be to run Jenkins on the Pi as a slave to the Jenkins running locally. Once the master Jenkins built project is sucessful, get the Pi to build the project (note build, not test) and deploy it.
 
 
 
