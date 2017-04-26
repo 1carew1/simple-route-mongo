@@ -19,7 +19,7 @@ This API was then integrated with the previously mentioned React App to give the
  + Ability to search Directions Model via URL queries e.g. ?user_id=123&limit=10
  + Appropriate payload validation via mongoose and mongoose-unique-validator to ensure data is coherent
 
-## Installation requirements.
+## Installation requirements
 Ensure you have a config folder in the root of this project with two files in it, allowedUsers.js and config.js.
 
 allowedUsers.js is all of the allowed users who can access the REST API.
@@ -125,9 +125,17 @@ Overall each model is quite heavily tested. As of writing this there are 32 test
 
 Mochawesome is used for generating reports.
 
+![Data Model][directionsTest]
+
+Some of the Directions test results as per the Mochawesome reporting test tool.
+
+![Data Model][userTests]
+
+Some of the User test results as per the Mochawesome reporting test tool.
+
 The tests can be ran via 'npm run test' and the result report can be found : simple-route-mongo/mochawesome-reports/mochawesome.html. There is also a JSON file if you want the test results in JSON.
 
-## Data Model Design.
+## Data Model Design
 
 Overall the data model is quite simple. The User's preferences are stored in a user_preferences collection. The user_preferences collection contains all preferences mentioned in the profile as well as the username, email and authentication provider of the user. It also contains all of the visted locations which is its own mongoose model.
 
@@ -162,7 +170,7 @@ A nice feature for furture development would be to store saftey information rega
 
 The model may be simple in design but it is heavily tested + validated and works well with the React Frontend.
 
-## API Routing.
+## API Routing
 ### User Preferences
 + GET /api/v1/userPreferences - get all user preferences
 + GET /api/v1/userPreferences/user_id - get user preference of specific user - this is their Auth0 profile id, not the Mongo DB _id
@@ -190,7 +198,7 @@ The project contains a docker-compose.yml file and Dockerfile. These are used fo
 Obviously these images are not standard Docker images. Some of them are build in mind for a Raspberry Pi architecture. They were picked for this reason. The App is capable of running via Docker, on a Raspberry Pi, it can also run on anything that runs Docker as 64 bit standard Docker images will not run on the Pi. In this case it was deployed live to a Raspberry Pi 3.
 
 
-## Independent learning.
+## Independent learning
 ### Docker
 As mentioned above Docker is used for running the App as it eliminates the 'it runs on my machine' issues. For this project Docker images were chosed for the Raspberry Pi, as even though all Docker images should run on any Docker daemon, they do not if the architecture cannot support the underlying image. However as the images are built for the Raspberry Pi, the images should now run on any machine as a 64 bit machine can run 32 bit images but not vice versa. Fun fact, the Raspberry Pi 3 is actually 64 bit, however the Raspbian image is 32 bit for backwards compatability with older Pis.
 ### Jenkins
@@ -203,3 +211,5 @@ A better solution to this would be to run Jenkins on the Pi as a slave to the Je
 
 
 [dataModel]: ./readmeResources/SimpleRouteReactDataModel.png
+[userTests]: ./readmeResources/userTests.png
+[directionsTest]: ./readmeResources/directionsTest.png
