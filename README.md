@@ -225,6 +225,10 @@ Part of the Jenkins Configuration.
 
 Start of a Jenkins Build of the Project.
 
+### Sonar Lint
+
+Is an IDE plugin, in this case it was used with Intellij Idea. It provides instant feedback on edited files regarding bugs and code quality issues such as overly complex methods. Seeing this allows for code refactoring before an overally code review. The plugin can be run against the whole project giving issues back. In the code written for this project there should be no over complex methods due to constant review with Sonar Lint.
+
 
 [dataModel]: ./readmeResources/SimpleRouteReactDataModel.png
 [userTests]: ./readmeResources/userTests.png
